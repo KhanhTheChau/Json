@@ -1,48 +1,77 @@
-import json
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
+
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
 CORS(app)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Hàm để điền các giá trị rỗng khi cần thiết
-def fill_missing_values(data):
-    default_values = {
-        "id": None,
-        "user": "",
-        "password": "",
-        "info": {
-            "ho": "",
-            "ten": "",
-            "email": "",
-            "sdt": "",
-            "img": ""
-        }
-    }
-    id_counter = 1
-    for item in data:
-        item["id"] = id_counter
-        id_counter += 1
-        for key, value in default_values.items():
-            if key not in item:
-                item[key] = value
-            elif isinstance(item[key], dict):
-                for subkey, subvalue in value.items():
-                    if subkey not in item[key]:
-                        item[key][subkey] = subvalue
-    return data
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+    ho = db.Column(db.String(50))
+    ten = db.Column(db.String(50))
+    email = db.Column(db.String(100))
+    sdt = db.Column(db.String(20))
+    img = db.Column(db.String(100))
+
 
 @app.route('/save', methods=['POST'])
-def save_json():
+def create_user():
     data = request.json
-    data = fill_missing_values(data)
-    with open('user.json', 'w', encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
-    with open('user.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    return jsonify(data)
+    
+    info = data.get('info', {})
+    print(info)
+    new_user = User(
+        user = data.get('user', ''),
+        password = data.get('password', ''),
+        ho = info.get('ho', ''),
+        ten = info.get('ten', ''),
+        email = info.get('email', ''),
+        sdt = info.get('sdt',''),
+        img = info.get('img','')
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    
+    all_users = User.query.all()
+
+    # # Tạo một danh sách để lưu trữ thông tin của tất cả người dùng
+    users_list = []
+
+    # # Lặp qua từng người dùng và chuyển đổi thông tin của họ thành đối tượng JSON
+    for user in all_users:
+        user_data = {
+            'id': user.id,
+            'user': user.user,
+            'password': user.password,
+            'info': {
+                'ho': user.ho,
+                'ten': user.ten,
+                'email': user.email,
+                'sdt': user.sdt,
+                'img': user.img
+            }
+        }
+        users_list.append(user_data)
+
+    # Trả về một mảng JSON chứa thông tin của tất cả người dùng
+    print(users_list)
+    return jsonify(users_list)
+
 @app.route('/')
 def hello():
     return render_template("index.html")
+
+
 if __name__ == '__main__':
+   
+    db.create_all()
     app.run(debug=True)
