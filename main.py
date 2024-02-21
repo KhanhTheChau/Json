@@ -1,7 +1,6 @@
 import json
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-import uvicorn
 app = Flask(__name__)
 CORS(app)
 
@@ -44,4 +43,4 @@ def save_json():
 def hello():
     return render_template("index.html")
 if __name__ == '__main__':
-    uvicorn.run("main:app", host="0.0.0.0", port=8080)
+    app.run(debug=True)
