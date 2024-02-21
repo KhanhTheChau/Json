@@ -1,0 +1,28 @@
+[
+    {
+        "id": 1,
+        "user": "Khanh",
+        "password": "1111",
+        "info": {
+            "ho": "Châu",
+            "ten": "Khanh",
+            "email": "khanh@gmail.com",
+            "sdt": "0345667788",
+            "img": "./img/profile/1.png"
+        }
+    },
+    {
+        "username": "phat",
+        "email": "phat@gmail.com",
+        "password": "qád",
+        "id": 2,
+        "user": "",
+        "info": {
+            "ho": "",
+            "ten": "",
+            "email": "",
+            "sdt": "",
+            "img": ""
+        }
+    }
+]

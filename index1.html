@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form</title>
+</head>
+<body>
+    <h2>Register Form</h2>
+    <form id="registerForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+
+            // Lấy giá trị từ các trường nhập liệu
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+   
+
+
+
+            // Đặt URL của máy chủ hoặc endpoint xử lý dữ liệu đăng ký
+            var url = 'http://127.0.0.1:5050/save'; // Thay đổi địa chỉ tùy thuộc vào ứng dụng của bạn
+
+            // Tạo một đối tượng chứa dữ liệu đăng ký
+            // Đọc tệp JSON
+            var data1 = {
+                username: username,
+                email: email,
+                password: password
+            };
+            fetch('user.json')
+                .then(response => response.json())
+                .then(data => {
+                    
+                    
+                    data.push(data1);
+                    // Tại đây, bạn có thể thực hiện các hành động khác với dữ liệu JSON nếu cần
+                
+
+            
+            
+            // Gửi yêu cầu POST bằng Ajax
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', url, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            alert(response.message);
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+                
+    
+            }).catch(error => console.error('Error reading file:', error));
+
+        });
+    </script>
+</body>
+</html>
