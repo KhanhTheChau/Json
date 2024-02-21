@@ -24,5 +24,19 @@
             "sdt": "",
             "img": ""
         }
+    },
+    {
+        "username": "tuan",
+        "email": "khai@gmail.com",
+        "password": "qq",
+        "id": 3,
+        "user": "",
+        "info": {
+            "ho": "",
+            "ten": "",
+            "email": "",
+            "sdt": "",
+            "img": ""
+        }
     }
 ]
