@@ -10,30 +10,5 @@
             "sdt": "0345667788",
             "img": "./img/profile/1.png"
         }
-    },
-    {
-        "user": "12345678",
-        "email": "khanhchau5678@gmail.com",
-        "password": "ppp",
-        "id": 2,
-        "info": {
-            "ho": "",
-            "ten": "",
-            "email": "",
-            "sdt": "",
-            "img": ""
-        }
-    },
-    {
-        "user": "12345678",
-        "password": "oo",
-        "id": 3,
-        "info": {
-            "ho": "",
-            "ten": "",
-            "email": "",
-            "sdt": "",
-            "img": ""
-        }
     }
 ]
