@@ -38,7 +38,9 @@ def save_json():
     data = fill_missing_values(data)
     with open('user.json', 'w', encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-    return jsonify({'message': 'Data saved successfully'})
+    with open('user.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    return jsonify(data)
 @app.route('/')
 def hello():
     return render_template("index.html")

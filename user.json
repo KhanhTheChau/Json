@@ -12,11 +12,10 @@
         }
     },
     {
-        "username": "phat",
-        "email": "phat@gmail.com",
-        "password": "qád",
+        "user": "12345678",
+        "email": "khanhchau5678@gmail.com",
+        "password": "ppp",
         "id": 2,
-        "user": "",
         "info": {
             "ho": "",
             "ten": "",
@@ -26,11 +25,9 @@
         }
     },
     {
-        "username": "tuan",
-        "email": "khai@gmail.com",
-        "password": "qq",
+        "user": "12345678",
+        "password": "oo",
         "id": 3,
-        "user": "",
         "info": {
             "ho": "",
             "ten": "",
